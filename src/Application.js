@@ -32,9 +32,12 @@ class Application extends Component {
           <h1>Lunch Rush</h1>
         </header>
         <div>
-          {!currentUser && <SignIn/>}
-          {currentUser && <CurrentUser user={currentUser} />}
-
+        {currentUser ? (
+            
+            <CurrentUser user={currentUser} />
+        ) : (
+              <SignIn />
+        )}
         </div>
       </div>
     );
