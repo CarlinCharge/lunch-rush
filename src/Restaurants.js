@@ -1,11 +1,31 @@
 import React, { Component, PropTypes } from 'react';
 import Restaurant from './Restaurant';
 import map from 'lodash/map';
+import {database} from './firebase';
 import './Restaurants.css';
 
 class Restaurants extends Component {
   constructor(props) {
     super(props);
+  }
+
+  handleSelect(key) {
+    const currentUser = this.props.user;
+    database.ref('/restaurants')
+            .child(key)
+            .child('votes')
+            .child(currentUser.uid)
+            .set(currentUser.displayName);
+  }
+
+  handleDeselect (key){
+    const currentUser = this.props.user;
+    database.ref('./restaurants')
+      .child(key)
+      .child('votes')
+      .child(currentUser.uid)
+      .remove();
+
   }
 
   render () {
@@ -14,7 +34,11 @@ class Restaurants extends Component {
       <section className="Restaurants">
         {
           map(restaurants, (restaurant, key) =>
-            <Restaurant key={key} {...restaurant}/>
+            <Restaurant key={key}
+             {...restaurant}
+             handleSelect={()=> this.handleSelect(key)}
+             handleDeselect={() => this.handleSelect(key)}
+             />
             )
         }
       </section>
