@@ -33,14 +33,13 @@ class Application extends Component {
         </header>
         <div>
         {currentUser ? (
-          <React.Fragment>
-            
-            <CurrentUser user={currentUser} />
-            <NewRestaurant/>
-            </React.Fragment>
+        <div>
+          <CurrentUser user={currentUser} />
+          <NewRestaurant />
+        </div>
         ) : (
               <SignIn />
-        )}
+)}
         </div>
       </div>
     );
