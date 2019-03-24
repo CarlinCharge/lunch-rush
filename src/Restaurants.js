@@ -7,6 +7,10 @@ import './Restaurants.css';
 class Restaurants extends Component {
   constructor(props) {
     super(props);
+
+    
+
+    this.handleDeselect = this.handleDeselect.bind(this);
   }
 
   handleSelect(key) {
@@ -20,7 +24,7 @@ class Restaurants extends Component {
 
   handleDeselect (key){
     const currentUser = this.props.user;
-    database.ref('./restaurants')
+    database.ref('/restaurants')
       .child(key)
       .child('votes')
       .child(currentUser.uid)
@@ -37,7 +41,7 @@ class Restaurants extends Component {
             <Restaurant key={key}
              {...restaurant}
              handleSelect={()=> this.handleSelect(key)}
-             handleDeselect={() => this.handleSelect(key)}
+             handleDeselect={() => this.handleDeselect(key)}
              />
             )
         }
