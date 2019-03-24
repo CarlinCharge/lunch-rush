@@ -9,14 +9,38 @@ import './Application.css';
 class Application extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentUser: null
+    };
+  }
+
+  componentDidMount(){
+    auth.onAuthStateChanged((currentUser) => {
+      this.setState({
+        currentUser
+      });
+    });
   }
 
   render() {
+
+    const { currentUser} = this.state;
+
     return (
       <div className="Application">
         <header className="Application--header">
           <h1>Lunch Rush</h1>
         </header>
+        <div>
+        {currentUser ? (
+        <div>
+          <CurrentUser user={currentUser} />
+          <NewRestaurant />
+        </div>
+        ) : (
+              <SignIn />
+)}
+        </div>
       </div>
     );
   }
